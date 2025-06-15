@@ -1,217 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your CKD Road Map</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #2A62D9; --light-blue: #EAF0FE; --text-heading: #1E293B; --text-body: #334155;
-            --border-color: #E2E8F0; --accent-green: #23C469; --accent-yellow: #F59E0B; --accent-orange: #F97316;
-            --accent-red: #EF4444; --accent-dark-red: #DC2626; --warning-bg: #FEF9C3; --warning-border: #FDE68A;
-            --info-bg: #EFF6FF; --info-border: #BFDBFE; --t2d-bg: #F0F9FF; --t2d-border: #E0F2FE;
-            --font-en: 'Inter', sans-serif; --font-hi: 'Noto Sans Devanagari', sans-serif;
-        }
-        body { background-color: #F8F9FC; color: var(--text-body); margin: 0; padding: 2rem; font-family: var(--font-en); }
-        .lang-hi { font-family: var(--font-hi); }
-        .container { max-width: 1800px; margin: 0 auto; }
-        .page-header { text-align: center; margin-bottom: 1.5rem; }
-        .page-header h1 { font-size: 2.5rem; color: var(--text-heading); }
-        .page-header p { font-size: 1.1rem; color: #64748B; }
-        .disclaimer { background-color: var(--warning-bg); border: 1px solid var(--warning-border); border-radius: 8px; padding: 1rem; margin: 2rem 0; text-align: center; font-size: 0.9rem; }
-        
-        .app-grid { display: grid; grid-template-columns: 320px 1fr 1fr; gap: 2rem; align-items: start; }
-        .left-panel, .column { display: flex; flex-direction: column; gap: 1.5rem; }
-        
-        .card { background-color: #FFFFFF; border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border-color); }
-        .egfr-display-box { background: var(--accent-orange); color: white; text-align: center; transition: background-color 0.4s ease; }
-        .egfr-value { font-size: 3rem; font-weight: 700; }
-        .egfr-value span { font-size: 1.5rem; }
-        .egfr-stage-name { font-size: 1rem; font-weight: 500; }
-        .roadmap-container { position: relative; height: 300px; display: flex; justify-content: center; cursor: pointer; }
-        .roadmap-track { width: 4px; background-color: #F1F5F9; height: 100%; }
-        .stage-marker { position: absolute; left: 20px; transform: translateY(-50%); font-size: 0.8rem; }
-        .roadmap-thumb { position: absolute; left: 50%; width: 14px; height: 14px; background-color: var(--primary-blue); border: 3px solid white; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 4px var(--primary-blue); }
-
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-        .form-group input, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; }
-        .form-button { width: 100%; padding: 0.8rem; background-color: var(--primary-blue); color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
-        .checkbox-group { display: flex; align-items: center; gap: 0.5rem; }
-
-        .column-header { background-color: var(--primary-blue); color: white; padding: 1rem 1.5rem; border-radius: 12px; }
-        .column-header h2 { margin: 0; font-size: 1.25rem; }
-        .alert-card, .content-section { padding: 1.5rem; border-radius: 10px; }
-        .alert-card { display: flex; gap: 1rem; align-items: flex-start; }
-        .info-card { background-color: var(--info-bg); border: 1px solid var(--info-border); }
-        .warning-card { background-color: var(--warning-bg); border: 1px solid var(--warning-border); }
-        .t2d-card { background-color: var(--t2d-bg); border: 1px solid var(--t2d-border); flex-direction: column; }
-        .alert-card i { font-size: 1.2rem; margin-top: 0.2rem; }
-        .info-card i { color: #3B82F6; }
-        .warning-card i { color: #F59E0B; }
-        .t2d-card i { color: #7C3AED; }
-        .alert-card h4, .content-section h4 { margin: 0 0 0.5rem 0; }
-        ul { list-style-type: none; padding-left: 0; margin: 0; }
-        li { padding-left: 1.2rem; position: relative; margin-bottom: 0.5rem; }
-        li::before { content: '•'; position: absolute; left: 0; color: var(--primary-blue); }
-
-        .lifestyle-card { background-color: #F0FFF4; } .lifestyle-card li::before { color: #10B981; }
-        .risk-card { background-color: #FFFBEB; } .risk-card li::before { color: #F59E0B; }
-        .medical-card { background-color: #F0F9FF; }
-        .bone-card { background-color: #F5F3FF; } .bone-card li::before { color: #8B5CF6; }
-        .planning-card { background-color: #FFF7ED; } .planning-card li::before { color: #F97316; }
-
-        @media (max-width: 1200px) { .app-grid { grid-template-columns: 1fr; } }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CKD Roadmap – Dynamic eGFR Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #f1f5f9;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+      --card-bg: #fff;
+      --border: #e5e7eb;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --font-main: 'Inter', sans-serif;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--secondary);
+      font-family: var(--font-main);
+      color: var(--text-dark);
+    }
+    .container {
+      max-width: 1150px;
+      margin: 2.5rem auto 3rem auto;
+      padding: 1.5rem;
+      background: var(--card-bg);
+      border-radius: 18px;
+      box-shadow: 0 4px 24px 0 rgb(30 41 59 / 8%);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      margin: 0 0 0.3rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    header p {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    .disclaimer {
+      background: #fff8e1;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 330px 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    aside, main {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 1px 6px 0 rgb(30 41 59 / 5%);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+    /* eGFR Display */
+    .egfr-display {
+      background: linear-gradient(90deg, var(--primary) 65%, #93c5fd 100%);
+      color: #fff;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+      padding: 1.2rem 1rem 1.3rem 1rem;
+      box-shadow: 0 2px 12px 0 rgb(37 99 235 / 7%);
+    }
+    .egfr-value {
+      font-size: 3.2rem;
+      font-weight: bold;
+      letter-spacing: -1px;
+      margin-bottom: 0.2rem;
+      line-height: 1.1;
+    }
+    .egfr-stage {
+      font-size: 1.2rem;
+      font-weight: 600;
+      opacity: 0.98;
+    }
+    /* Slider */
+    .egfr-slider-section {
+      margin: 1.3rem 0 0.7rem 0;
+      padding: 0 0.6rem;
+    }
+    .egfr-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-top: 0.3rem;
+    }
+    .egfr-slider {
+      width: 100%;
+      accent-color: var(--primary);
+      height: 4px;
+      margin: 0.7rem 0 0 0;
+      cursor: pointer;
+    }
+    .egfr-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 2px 8px 0 rgb(37 99 235 / 14%);
+      border: 3px solid #fff;
+      transition: box-shadow .2s;
+    }
+    .egfr-slider:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px #60a5fa66;
+    }
+    .egfr-slider::-moz-range-thumb {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px 0 rgb(37 99 235 / 14%);
+    }
+    /* Calculator */
+    .calc-form label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-dark);
+    }
+    .calc-form input, .calc-form select {
+      width: 100%;
+      padding: 0.6rem .7rem;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      background: #f9fafb;
+      font-family: var(--font-main);
+    }
+    .calc-form .checkbox-row {
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+    }
+    .calc-form .form-btn {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-size: 1.07rem;
+      border-radius: 6px;
+      padding: 0.8rem 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .calc-form .form-btn:hover {
+      background: #1d4fd7;
+    }
+    .calc-form .calc-result {
+      text-align: center;
+      font-weight: bold;
+      color: var(--primary);
+      margin: .8rem 0 0 0;
+    }
+    /* Columns */
+    .column-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 1.3rem;
+      border-radius: 10px 10px 0 0;
+      margin-bottom: 0;
+    }
+    .content-section {
+      padding: 1.1rem 1.3rem;
+    }
+    .alert-card {
+      display: flex;
+      gap: 0.8rem;
+      align-items: flex-start;
+      border-radius: 9px;
+      padding: 1rem 1.2rem;
+      background: #eff6ff;
+      border: 1.5px solid #bae6fd;
+      color: #0369a1;
+      margin-bottom: 0.7rem;
+    }
+    .alert-card.warning {
+      background: #fef9c3;
+      border-color: #fde68a;
+      color: #b45309;
+    }
+    .alert-card.danger {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #b91c1c;
+    }
+    .alert-card .fa {
+      font-size: 1.3rem;
+      margin-top: 0.1rem;
+      min-width: 22px;
+      text-align: center;
+    }
+    .content-section h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.09rem;
+      font-weight: 600;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 1.45rem;
+      margin: 0.2rem 0 0.5rem 0;
+      color: var(--text-dark);
+      font-size: 1rem;
+    }
+    li { margin-bottom: 0.4rem; }
+    /* Card color accents */
+    .lifestyle-card { background: #f0fff4; }
+    .risk-card { background: #fffbeb;}
+    .medical-card { background: #f0f9ff; }
+    .bone-card { background: #f5f3ff;}
+    .planning-card { background: #fff7ed;}
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .container { padding: 0.5rem; }
+      .main-grid { gap: 1rem; }
+      .card, .content-section, .alert-card, .column-header { padding: 1rem; }
+    }
+  </style>
 </head>
-<body class="lang-en">
-    <div class="container">
-        <header class="page-header"><h1>Your CKD Road Map</h1><p>A comprehensive guide for managing chronic kidney disease</p></header>
-        <div class="disclaimer"><strong>Disclaimer:</strong> This graphic is just a guide based on KDIGO CKD recommendations. Please ask your Nephrologist for specific advice tailored to your individual needs.</div>
-        <div class="app-grid">
-            <aside class="left-panel">
-                <div id="egfr-display-box" class="card egfr-display-box"><div id="egfr-value-display" class="egfr-value">16<span>mL/min</span></div><div id="egfr-stage-display" class="egfr-stage-name">Severe</div></div>
-                <div class="card roadmap-container" id="roadmap-container">
-                    <div class="roadmap-track"><div id="roadmap-thumb" class="roadmap-thumb"></div></div>
-                    <div class="stage-markers">
-                        <div class="stage-marker" style="top: 0%;">60+ <span>G1/G2</span></div><div class="stage-marker" style="top: 25%;">45 <span>G3a</span></div>
-                        <div class="stage-marker" style="top: 50%;">30 <span>G3b</span></div><div class="stage-marker" style="top: 75%;">15 <span>G4</span></div><div class="stage-marker" style="top: 100%;">0 <span>G5</span></div>
-                    </div>
-                </div>
-                <div class="card"><h3>eGFR Calculator</h3>
-                    <div class="form-group"><label for="age">Age</label><input type="number" id="age" value="60"></div>
-                    <div class="form-group"><label for="sex">Sex</label><select id="sex"><option value="female">Female</option><option value="male">Male</option></select></div>
-                    <div class="form-group"><label for="creatinine">Creatinine</label><input type="number" id="creatinine" value="3" step="0.1"></div>
-                    <div class="form-group checkbox-group"><input type="checkbox" id="albuminuria-check"><label for="albuminuria-check">Albuminuria</label></div>
-                    <div class="form-group checkbox-group"><input type="checkbox" id="t2d-check"><label for="t2d-check">Type 2 Diabetes</label></div>
-                    <button id="calculate-btn" class="form-button">Calculate eGFR</button>
-                    <p id="calculated-egfr-result" style="text-align:center; font-weight: bold; margin-top: 1rem;"></p>
-                </div>
-            </aside>
-            <main class="column" id="management-column"></main>
-            <aside class="column" id="specific-column"></aside>
-        </div>
+<body>
+  <div class="container">
+    <header>
+      <h1>Your CKD Road Map</h1>
+      <p>A dynamic, personalized guide for managing chronic kidney disease (CKD)</p>
+    </header>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong>
+      This roadmap is a guide based on KDIGO CKD recommendations. Always consult your nephrologist for advice tailored to you.
     </div>
-<script>
-// --- STATE & DOM ---
-const state = { eGFR: 16, language: 'en', hasAlbuminuria: false, hasT2D: false, isDragging: false };
-const dom = {
-    body: document.body, egfrValueDisplay: document.getElementById('egfr-value-display'), egfrStageDisplay: document.getElementById('egfr-stage-display'),
-    egfrDisplayBox: document.getElementById('egfr-display-box'), roadmapContainer: document.getElementById('roadmap-container'),
-    roadmapThumb: document.getElementById('roadmap-thumb'), ageInput: document.getElementById('age'), sexSelect: document.getElementById('sex'),
-    creatinineInput: document.getElementById('creatinine'), albuminuriaCheck: document.getElementById('albuminuria-check'),
-    t2dCheck: document.getElementById('t2d-check'), calculateBtn: document.getElementById('calculate-btn'),
-    calculatedEgfrResult: document.getElementById('calculated-egfr-result'), managementColumn: document.getElementById('management-column'),
-    specificColumn: document.getElementById('specific-column')
-};
-
-// --- COMPLETE DATA & I18N ---
-const data = {
-    // Stage G4/G5 (eGFR < 30) - All data points from your text
-    g4_g5: {
-        stageName: { en: "Severe / Kidney Failure", hi: "गंभीर / किडनी फेलियर" },
-        color: "var(--accent-red)",
-        careTransition: { en: "Access planning and renal replacement therapy (RRT) preparation recommended at this eGFR level.", hi: "इस eGFR स्तर पर पहुंच योजना और गुर्दा प्रतिस्थापन चिकित्सा (RRT) की तैयारी की सिफारिश की जाती है।" },
-        albuminuriaWarning: { en: "The presence of albuminuria significantly multiplies the risk of cardiometabolic and kidney events.", hi: "एल्ब्यूमिन्यूरिया की उपस्थिति कार्डियोमेटाबोलिक और गुर्दे की घटनाओं के जोखिम को काफी बढ़ा देती है।" },
-        firstLineTherapy: { en: { title: "First line drug therapy for cardiovascular and kidney protection:", points: ["RAASi (diabetic and non-diabetic patients)", "SGLT2i (diabetic and non-diabetic patients)", "Non-steroidal MRAs (diabetic patients only)"]}, hi: { title: "हृदय और गुर्दे की सुरक्षा के लिए प्रथम-पंक्ति दवा चिकित्सा:", points: ["RAASi (मधुमेह और गैर-मधुमेह रोगी)", "SGLT2i (मधुमेह और गैर-मधुमेह रोगी)", "गैर-स्टेरायडल MRAs (केवल मधुमेह रोगी)"]}},
-        t2dManagement: { en: { title: "Type 2 Diabetes Management in CKD", points: [
-            "Individualized HbA1c target: <6.5% to <8.0% based on patient factors",
-            "Metformin: Contraindicated at eGFR <30 mL/min/1.73m²",
-            "SGLT2i: Not recommended at eGFR <20 mL/min/1.73m²",
+    <div class="main-grid">
+      <!-- LEFT SIDEBAR -->
+      <aside>
+        <div class="egfr-display card">
+          <div class="egfr-value"><span id="egfr-value-num">60</span> <span style="font-size:1.2rem;font-weight:400;">mL/min</span></div>
+          <div class="egfr-stage" id="egfr-stage-label">Normal / High</div>
+        </div>
+        <div class="card egfr-slider-section">
+          <label for="egfr-slider" style="font-weight:600;">eGFR (mL/min/1.73m²)</label>
+          <input type="range" min="5" max="90" value="60" id="egfr-slider" class="egfr-slider">
+          <div class="egfr-label-row">
+            <span>5</span>
+            <span>15</span>
+            <span>30</span>
+            <span>45</span>
+            <span>60</span>
+            <span>90+</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0;font-size:1.15rem;">eGFR Calculator</h3>
+          <form class="calc-form" id="egfr-calc-form" onsubmit="return false;">
+            <label for="age">Age</label>
+            <input type="number" id="age" min="1" max="120" value="60" required>
+            <label for="sex">Sex</label>
+            <select id="sex">
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
+            <label for="creatinine">Creatinine (mg/dL)</label>
+            <input type="number" id="creatinine" min="0.3" step="0.01" value="1.0" required>
+            <div class="checkbox-row">
+              <input type="checkbox" id="albuminuria-check">
+              <label for="albuminuria-check">Albuminuria</label>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="t2d-check">
+              <label for="t2d-check">Type 2 Diabetes</label>
+            </div>
+            <button type="submit" class="form-btn">Calculate eGFR</button>
+            <div id="calc-egfr-result" class="calc-result"></div>
+          </form>
+        </div>
+      </aside>
+      <!-- MANAGEMENT PLAN COLUMN -->
+      <main id="management-column"></main>
+      <!-- SPECIFIC RECOMMENDATIONS COLUMN -->
+      <aside id="specific-column"></aside>
+    </div>
+  </div>
+  <script>
+    // --- CKD Stage Data ---
+    const data = {
+      g4_g5: {
+        stageName: "Severe / Kidney Failure",
+        color: "var(--danger)",
+        careTransition: "Access planning and renal replacement therapy (RRT) preparation recommended at this eGFR level.",
+        albuminuriaWarning: "The presence of albuminuria significantly multiplies the risk of cardiometabolic and kidney events.",
+        firstLineTherapy: {
+          title: "First line drug therapy for cardiovascular and kidney protection:",
+          points: [
+            "RAASi (diabetic and non-diabetic patients)",
+            "SGLT2i (diabetic and non-diabetic patients)"
+          ]
+        },
+        t2dManagement: {
+          title: "Type 2 Diabetes Management in CKD",
+          points: [
+            "Individualized HbA1c target: &lt;6.5% to &lt;8.0% based on patient factors",
+            "Metformin: Contraindicated at eGFR &lt;30 mL/min/1.73m²",
+            "SGLT2i: Not recommended at eGFR &lt;20 mL/min/1.73m²",
             "Finerenone: Consider if albuminuria persists despite RAASi and SGLT2i",
-            "<ul><li>Start 10mg if eGFR <60 mL/min/1.73m²</li><li>Start 20mg if eGFR ≥60 mL/min/1.73m² and K+ ≤4.8 mmol/L</li><li>Monitor K+ at 1 month and every 4 months</li><li>Continue if K+ 4.9-5.5 mmol/L</li><li>Hold if K+ >5.5 mmol/L; resume when K+ ≤5.0 mmol/L</li></ul>"
-        ]}, hi: { title: "सीकेडी में टाइप 2 मधुमेह प्रबंधन", points: ["व्यक्तिगत HbA1c लक्ष्य: रोगी कारकों के आधार पर <6.5% से <8.0%", "मेटफॉर्मिन: eGFR <30 पर निषिद्ध", "SGLT2i: eGFR <20 पर अनुशंसित नहीं", "फिनरेनोन: विचार करें यदि एल्ब्यूमिन्यूरिया बनी रहती है", "<ul><li>... (Translated sub-points)</li></ul>"]}},
+            "Monitor potassium closely"
+          ]
+        },
         managementCards: [
-            { key: "lifestyle", en: { title: "Lifestyle Interventions", points: ["Sodium intake <2 g/day", "Protein restriction (0.6-0.8g/kg/day)", "Gentle physical activity as tolerated", "Smoking cessation urgent", "Limit processed foods"]}, hi:{title:"जीवनशैली हस्तक्षेप", points:["..."]}},
-            { key: "risk", en: { title: "Risk Factor Management", points: ["Blood pressure target: SBP <120 mmHg if tolerated", "Individualized glycemic targets", "Statin therapy recommended", "Monitor albuminuria quarterly", "Low-dose aspirin if established CVD", "Discuss dialysis options and education"]}, hi:{title:"जोखिम कारक प्रबंधन", points:["..."]}},
-            { key: "medical", en: { title: "Medical Therapy", points: ["Careful use of ACEi/ARBs", "SGLT2i for T2D with eGFR >20 ml/min", "Statin for adults ≥50 years", "Avoid nephrotoxic medications", "Metformin contraindicated", "Discuss dialysis options and education", "Monitor kidney function monthly", "With albuminuria: Very careful RAASi use with close monitoring"]}, hi:{title:"चिकित्सा थेरेपी", points:["..."]}},
-            { key: "bone_mgmt", en: { title: "Bone & Mineral Management", points: ["Check calcium and phosphate every 3 months", "Check iPTH every 6 months", "Monitor for mineral bone disorder", "Consider vitamin D status"]}, hi:{title:"अस्थि और खनिज प्रबंधन", points:["..."]}},
-            { key: "planning", en: { title: "Advanced CKD Planning", points: ["Discuss dialysis options and education", "Regular nephrology follow-up", "Early transplant discussion if appropriate", "Vascular access planning", "Advance care planning discussions"]}, hi:{title:"उन्नत सीकेडी योजना", points:["..."]}}
+          {
+            key: "lifestyle",
+            title: "Lifestyle Interventions",
+            points: [
+              "Sodium intake &lt;2 g/day",
+              "Protein restriction (0.6–0.8g/kg/day)",
+              "Gentle physical activity as tolerated",
+              "Smoking cessation"
+            ]
+          },
+          {
+            key: "risk",
+            title: "Risk Factor Management",
+            points: [
+              "Blood pressure target: SBP &lt;120 mmHg if tolerated",
+              "Individualized glycemic targets",
+              "Statin therapy recommended",
+              "Monitor cardiovascular risk"
+            ]
+          },
+          {
+            key: "medical",
+            title: "Medical Therapy",
+            points: [
+              "Careful use of ACEi/ARBs",
+              "SGLT2i for T2D with eGFR &gt;20 ml/min",
+              "Statin for adults ≥50 years",
+              "Avoid nephrotoxic medications"
+            ]
+          },
+          {
+            key: "bone",
+            title: "Bone & Mineral Management",
+            points: [
+              "Check calcium and phosphate every 3 months",
+              "Check iPTH every 6 months",
+              "Monitor for mineral bone disorder",
+              "Consider phosphate binders"
+            ]
+          },
+          {
+            key: "planning",
+            title: "Advanced CKD Planning",
+            points: [
+              "Discuss dialysis options and education",
+              "Regular nephrology follow-up",
+              "Early transplant discussion if appropriate",
+              "Vaccination (e.g., hepatitis B, influenza)"
+            ]
+          }
         ],
         specificCards: [
-            { key: "dietary", en: { title: "Dietary Guidelines", points: ["Low sodium diet (<2 g/day)", "Protein restriction (0.6-0.8g/kg/day)", "Potassium restriction may be needed", "Phosphate restriction", "Consider dietitian referral"]}, hi:{title:"आहार संबंधी दिशानिर्देश", points:["..."]}},
-            { key: "physical", en: { title: "Physical Activity", points: ["Activity compatible with tolerance", "Low-impact exercises recommended", "Maintain optimal BMI (20-25 kg/m²)", "Absolutely avoid tobacco products", "Consider physical therapy"]}, hi:{title:"शारीरिक गतिविधि", points:["..."]}},
-            { key: "medication", en: { title: "Medication Management", points: ["Individualize SBP targets", "Careful use of ACEi/ARBs", "SGLT2i for T2D with eGFR >20 ml/min", "Withhold SGLT2i during illness/surgery", "Metformin contraindicated", "Statin for adults ≥50 years", "Low-dose aspirin if established CVD", "With albuminuria: Very careful RAASi use with close monitoring"]}, hi:{title:"दवा प्रबंधन", points:["..."]}},
-            { key: "monitoring", en: { title: "Monitoring & Follow-up", points: ["Check eGFR and electrolytes every 1-3 months", "Ca/PO4 every 3 months", "iPTH every 6 months", "Regular anemia screening", "Assess for uremic symptoms", "Discuss dialysis options and education", "With albuminuria: More frequent monitoring recommended"]}, hi:{title:"निगरानी और फॉलो-अप", points:["..."]}},
-            { key: "bone_spec", en: { title: "Bone & Mineral Monitoring", points: ["Ca/PO4 every 3 months", "iPTH every 6 months", "Vitamin D assessment", "Consider phosphate restriction"]}, hi:{title:"अस्थि और खनिज निगरानी", points:["..."]}}
+          {
+            key: "dietary",
+            title: "Dietary Guidelines",
+            points: [
+              "Low sodium diet (&lt;2 g/day)",
+              "Protein restriction (0.6–0.8g/kg/day)",
+              "Potassium restriction may be needed",
+              "Phosphate restriction if hyperphosphatemia"
+            ]
+          },
+          {
+            key: "physical",
+            title: "Physical Activity",
+            points: [
+              "Activity compatible with tolerance",
+              "Low-impact exercises recommended",
+              "Maintain optimal BMI (20–25 kg/m²)",
+              "Absolutely avoid dehydration"
+            ]
+          },
+          {
+            key: "medication",
+            title: "Medication Management",
+            points: [
+              "Individualize SBP targets",
+              "Careful use of ACEi/ARBs",
+              "SGLT2i for T2D with eGFR &gt;20 ml/min",
+              "Withhold SGLT2i during acute illness"
+            ]
+          },
+          {
+            key: "monitoring",
+            title: "Monitoring & Follow-up",
+            points: [
+              "Check eGFR and electrolytes every 1–3 months",
+              "Ca/PO4 every 3 months",
+              "iPTH every 6 months",
+              "Regular anemia screening"
+            ]
+          },
+          {
+            key: "bone_spec",
+            title: "Bone & Mineral Monitoring",
+            points: [
+              "Ca/PO4 every 3 months",
+              "iPTH every 6 months",
+              "Vitamin D assessment",
+              "Consider phosphate restriction"
+            ]
+          }
         ]
-    }
-};
-// Add other stages by inheriting and simplifying for demo purposes
-data.g3b = { ...data.g4_g5, stageName: { en: "Moderate-Severe", hi: "मध्यम-गंभीर" }, color: "var(--accent-orange)"};
-data.g3a = { ...data.g4_g5, stageName: { en: "Mild-Moderate", hi: "हल्का-मध्यम" }, color: "var(--accent-yellow)"};
-data.g1_g2 = { ...data.g4_g5, stageName: { en: "Normal / High", hi: "सामान्य / उच्च" }, color: "var(--accent-green)"};
-
-// --- UI RENDER LOGIC ---
-function updateUI() {
-    const stageKey = state.eGFR >= 30 ? (state.eGFR >= 45 ? (state.eGFR >= 60 ? 'g1_g2' : 'g3a') : 'g3b') : 'g4_g5';
-    const stageData = data[stageKey];
-    const lang = 'en'; // Simplified for clarity, can be toggled
-
-    // Update left panel display
-    dom.egfrValueDisplay.innerHTML = `${state.eGFR}<span>mL/min</span>`;
-    dom.egfrStageDisplay.textContent = stageData.stageName[lang];
-    dom.egfrDisplayBox.style.backgroundColor = stageData.color;
-    dom.roadmapThumb.style.top = `${100 - ((state.eGFR / 90) * 100)}%`;
-
-    // --- Build Columns ---
-    let mgmtHTML = `<div class="column-header"><h2>Management Plan</h2></div>`;
-    let specHTML = `<div class="column-header"><h2>Specific Recommendations</h2></div>`;
-
-    const createCardHTML = (cardData, cardClass = '') => {
-        const content = cardData[lang];
-        return `<div class="card content-section ${cardClass}"><h4>${content.title}</h4><ul>${content.points.map(p => `<li>${p}</li>`).join('')}</ul></div>`;
+      }
     };
-    
-    // Add Alert Cards to Management Column
-    if (stageData.careTransition) mgmtHTML += `<div class="alert-card info-card"><i class="fas fa-info-circle"></i><div><h4>Care Transition</h4><p>${stageData.careTransition[lang]}</p></div></div>`;
-    if (state.hasAlbuminuria && stageData.albuminuriaWarning) {
-        const content = stageData.firstLineTherapy[lang];
-        mgmtHTML += `<div class="alert-card warning-card"><i class="fas fa-exclamation-triangle"></i><div><h4>Albuminuria detected</h4><p>${stageData.albuminuriaWarning[lang]}</p><strong>${content.title}</strong><ul>${content.points.map(p => `<li>${p}</li>`).join('')}</ul></div></div>`;
+    // Copy and simplify for other stages
+    data.g3b = {
+      ...data.g4_g5,
+      stageName: "Moderate-Severe",
+      color: "var(--warning)",
+      careTransition: "Refer to nephrologist if not already, and start advanced CKD education.",
+    };
+    data.g3a = {
+      ...data.g4_g5,
+      stageName: "Mild-Moderate",
+      color: "var(--success)",
+      careTransition: "Monitor eGFR every 6–12 months. Early lifestyle and medical interventions are important.",
+    };
+    data.g1_g2 = {
+      ...data.g4_g5,
+      stageName: "Normal / High",
+      color: "var(--primary)",
+      careTransition: "Maintain healthy lifestyle and monitor risk factors. Annual eGFR check recommended.",
+    };
+
+    // --- State Management ---
+    const state = {
+      eGFR: 60,
+      hasAlbuminuria: false,
+      hasT2D: false,
+    };
+    // --- DOM refs ---
+    const dom = {
+      egfrValueNum: document.getElementById('egfr-value-num'),
+      egfrStageLabel: document.getElementById('egfr-stage-label'),
+      egfrSlider: document.getElementById('egfr-slider'),
+      albuminuriaCheck: document.getElementById('albuminuria-check'),
+      t2dCheck: document.getElementById('t2d-check'),
+      managementColumn: document.getElementById('management-column'),
+      specificColumn: document.getElementById('specific-column'),
+      egfrCalcForm: document.getElementById('egfr-calc-form'),
+      calcEgfrResult: document.getElementById('calc-egfr-result'),
+      ageInput: document.getElementById('age'),
+      sexInput: document.getElementById('sex'),
+      creatinineInput: document.getElementById('creatinine')
+    };
+
+    // --- Functions ---
+    function getStageKey(eGFR) {
+      if (eGFR >= 60) return 'g1_g2';
+      if (eGFR >= 45) return 'g3a';
+      if (eGFR >= 30) return 'g3b';
+      return 'g4_g5';
     }
-    if (state.hasT2D && stageData.t2dManagement) mgmtHTML += `<div class="alert-card t2d-card"><i class="fas fa-prescription-bottle-medical"></i>${createCardHTML(stageData.t2dManagement)}</div>`;
-
-    // Add Regular Cards
-    stageData.managementCards.forEach(card => mgmtHTML += createCardHTML(card, `${card.key}-card`));
-    stageData.specificCards.forEach(card => specHTML += createCardHTML(card, `${card.key}-card`));
-
-    dom.managementColumn.innerHTML = mgmtHTML;
-    dom.specificColumn.innerHTML = specHTML;
-}
-
-// --- EVENT LISTENERS ---
-function handleSliderUpdate(value) {
-    state.eGFR = parseInt(value, 10);
-    updateUI();
-}
-dom.roadmapContainer.addEventListener('mousedown', (e) => { state.isDragging = true; /* drag logic */ });
-window.addEventListener('mousemove', (e) => { if (state.isDragging) { /* drag logic */ }});
-window.addEventListener('mouseup', () => { state.isDragging = false; });
-dom.calculateBtn.addEventListener('click', () => {
-    const age = parseFloat(dom.ageInput.value);
-    const creatinine = parseFloat(dom.creatinineInput.value);
-    if (!age || !creatinine) { alert("Please enter valid age and creatinine."); return; }
-    const sex = dom.sexSelect.value;
-    const k = (sex === 'female') ? 0.7 : 0.9, a = (sex === 'female') ? -0.241 : -0.302;
-    const calculatedEgfr = Math.round(142 * Math.pow(Math.min(creatinine / k, 1), a) * Math.pow(Math.max(creatinine / k, 1), -1.200) * Math.pow(0.9938, age) * (sex === 'female' ? 1.012 : 1));
-    state.eGFR = Math.max(0, Math.min(90, calculatedEgfr));
-    dom.calculatedEgfrResult.textContent = `Calculated eGFR: ${state.eGFR} mL/min/1.73m²`;
-    updateUI();
-});
-[dom.albuminuriaCheck, dom.t2dCheck].forEach(check => {
-    check.addEventListener('change', () => {
-        state.hasAlbuminuria = dom.albuminuriaCheck.checked;
-        state.hasT2D = dom.t2dCheck.checked;
-        updateUI();
+    function updateUI() {
+      const stageKey = getStageKey(state.eGFR);
+      const stage = data[stageKey];
+      dom.egfrValueNum.textContent = state.eGFR;
+      dom.egfrStageLabel.textContent = stage.stageName;
+      dom.egfrStageLabel.style.color = 'var(--primary)';
+      // Management
+      let mgmtHTML = `<div class="column-header"><h2>Management Plan</h2></div>`;
+      if (stage.careTransition) mgmtHTML +=
+        `<div class="alert-card"><i class="fa fa-info-circle"></i><div><strong>Care Transition</strong><br>${stage.careTransition}</div></div>`;
+      if (state.hasAlbuminuria && stage.albuminuriaWarning) {
+        mgmtHTML += `<div class="alert-card warning"><i class="fa fa-exclamation-triangle"></i><div>
+          <strong>Albuminuria detected</strong><br>${stage.albuminuriaWarning}
+          <div style="margin-top:0.4rem;"><em>${stage.firstLineTherapy.title}</em>
+            <ul>${stage.firstLineTherapy.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>
+        </div></div>`;
+      }
+      if (state.hasT2D && stage.t2dManagement) {
+        mgmtHTML += `<div class="alert-card danger"><i class="fa fa-prescription-bottle-medical"></i><div>
+          <strong>${stage.t2dManagement.title}</strong>
+          <ul>${stage.t2dManagement.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+        </div></div>`;
+      }
+      stage.managementCards.forEach(card => {
+        mgmtHTML += `<div class="content-section card ${card.key}-card"><h4>${card.title}</h4><ul>${card.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>`;
+      });
+      dom.managementColumn.innerHTML = mgmtHTML;
+      // Specific
+      let specHTML = `<div class="column-header"><h2>Specific Recommendations</h2></div>`;
+      stage.specificCards.forEach(card => {
+        specHTML += `<div class="content-section card ${card.key}-card"><h4>${card.title}</h4><ul>${card.points.map(p=>`<li>${p}</li>`).join('')}</ul></div>`;
+      });
+      dom.specificColumn.innerHTML = specHTML;
+      // eGFR display accent
+      dom.egfrStageLabel.parentElement.style.background = stage.color === 'var(--primary)' ? 'linear-gradient(90deg, var(--primary) 65%, #93c5fd 100%)' : stage.color;
+    }
+    // --- Event Listeners ---
+    dom.egfrSlider.addEventListener('input', e => {
+      state.eGFR = Number(e.target.value);
+      updateUI();
     });
-});
+    dom.albuminuriaCheck.addEventListener('change', e => {
+      state.hasAlbuminuria = e.target.checked;
+      updateUI();
+    });
+    dom.t2dCheck.addEventListener('change', e => {
+      state.hasT2D = e.target.checked;
+      updateUI();
+    });
+    dom.egfrCalcForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const age = parseFloat(dom.ageInput.value);
+      const creatinine = parseFloat(dom.creatinineInput.value);
+      const sex = dom.sexInput.value;
+      if (!age || !creatinine) {
+        dom.calcEgfrResult.textContent = "Please enter valid age and creatinine.";
+        dom.calcEgfrResult.style.color = 'var(--danger)';
+        return;
+      }
+      // CKD-EPI 2021 formula (simplified, US units)
+      const k = sex === 'female' ? 0.7 : 0.9;
+      const a = sex === 'female' ? -0.241 : -0.302;
+      const egfr = Math.round(
+        142 *
+        Math.pow(Math.min(creatinine / k, 1), a) *
+        Math.pow(Math.max(creatinine / k, 1), -1.200) *
+        Math.pow(0.9938, age) *
+        (sex === 'female' ? 1.012 : 1)
+      );
+      state.eGFR = Math.max(5, Math.min(90, egfr));
+      dom.egfrSlider.value = state.eGFR;
+      dom.calcEgfrResult.textContent = `Calculated eGFR: ${state.eGFR} mL/min/1.73m²`;
+      dom.calcEgfrResult.style.color = 'var(--primary)';
+      updateUI();
+    });
 
-// --- INITIALIZATION ---
-updateUI();
-</script>
+    // Initial UI
+    updateUI();
+  </script>
 </body>
 </html>
