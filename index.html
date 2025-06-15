@@ -2,250 +2,848 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>CKD Roadmap - Dynamic Recommendations</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CKD Road Map - Comprehensive Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   <style>
-    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
-    .container { max-width: 800px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 12px #bbb; padding: 32px; }
-    h1, h2 { color: #23527c; }
-    label { display: block; margin-top: 20px; font-weight: bold; }
-    input[type="number"], select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; }
-    button { margin-top: 24px; padding: 12px 32px; border: none; border-radius: 4px; background: #23527c; color: #fff; font-size: 1em; cursor: pointer; }
-    button:hover { background: #183659; }
-    #planOutput { margin-top: 40px; }
-    ul { margin: 0 0 16px 20px; }
-    .note { background: #fffae6; border-left: 4px solid #ffce36; padding: 8px 16px; border-radius: 4px; margin-bottom: 16px; }
-    @media (max-width: 600px) {
-      .container { padding: 12px; }
+    body {
+      font-family: 'Inter var', 'Inter', sans-serif;
+      background-color: #f0f4f8; /* Light background for the page */
     }
+    /* Slider thumb styles */
+    .slider-thumb::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: currentColor; /* Will be set by accent-color class */
+      border: 3px solid white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: box-shadow .2s;
+      cursor: grab;
+    }
+    .slider-thumb:active::-webkit-slider-thumb {
+        cursor: grabbing;
+    }
+    .slider-thumb:focus::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4); 
+    }
+    .slider-thumb::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: currentColor; /* Will be set by accent-color class */
+      border: 3px solid white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      cursor: grab;
+    }
+    .slider-thumb:active::-moz-range-thumb {
+        cursor: grabbing;
+    }
+    .slider-thumb:focus::-moz-range-thumb {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4);
+    }
+    .list-disc { list-style-type: disc; }
+    .list-circle { list-style-type: circle; }
+    .list-inside { list-style-position: inside; }
+    .list-outside { list-style-position: outside; }
+    
+    .content-card ul, .alert-card ul {
+        list-style-position: outside;
+        padding-left: 1.25rem; /* Equivalent to pl-5 in Tailwind */
+        margin-top: 0.25rem; /* space-y-0.5ish */
+    }
+     .content-card ul ul, .alert-card ul ul { 
+        margin-top: 0.25rem; 
+        padding-left: 1.25rem; /* Further indent nested lists */
+    }
+    .card {
+      background-color: white;
+      border-radius: 0.75rem; /* rounded-xl */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); /* shadow-lg */
+      border: 1px solid #e5e7eb; /* border-slate-200 */
+      padding: 1.5rem; /* p-6 */
+    }
+    .column-header {
+        background-color: #3b82f6; /* bg-blue-600 */
+        color: white;
+        padding: 1rem; /* p-4 */
+        border-top-left-radius: 0.75rem; /* rounded-t-xl */
+        border-top-right-radius: 0.75rem; /* rounded-t-xl */
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06); /* shadow */
+    }
+    .column-header h2 {
+        font-size: 1.25rem; /* text-xl */
+        font-weight: 600; /* font-semibold */
+    }
+    .alert-card-base {
+      display: flex;
+      gap: 0.75rem; /* gap-3 */
+      align-items: flex-start; /* items-start */
+      padding: 1rem; /* p-4 */
+      border-radius: 0.5rem; /* rounded-lg */
+      border-width: 1px;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); /* shadow-sm */
+    }
+    .alert-card-base i {
+      margin-top: 0.125rem; /* mt-0.5 */
+      font-size: 1.25rem; /* text-xl */
+    }
+    .alert-card-base strong {
+      display: block;
+      font-weight: 600; /* font-semibold */
+    }
+    .alert-card-base .alert-content {
+      font-size: 0.875rem; /* text-sm */
+    }
+    .content-card-base {
+      padding: 1.25rem; /* p-5 */
+      border-radius: 0.75rem; /* rounded-xl */
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1); /* shadow-lg */
+      border-width: 1px;
+      color: #334155; /* text-slate-700 */
+    }
+    .content-card-base h4 {
+      font-size: 1rem; /* text-md */
+      font-weight: 600; /* font-semibold */
+      color: #1e293b; /* text-slate-800 */
+      margin-bottom: 0.5rem; /* mb-2 */
+    }
+
   </style>
-</head>
-<body>
-  <div class="container">
-    <h1>CKD Management Roadmap</h1>
-    <form id="ckdForm">
-      <label for="egfr">eGFR (ml/min/1.73m²):</label>
-      <input type="number" min="1" max="200" step="0.1" id="egfr" required>
-
-      <label for="albuminuria">Albuminuria:</label>
-      <select id="albuminuria">
-        <option value="true">Detected</option>
-        <option value="false">Not detected</option>
-      </select>
-
-      <label for="t2d">Type 2 Diabetes:</label>
-      <select id="t2d">
-        <option value="true">Yes</option>
-        <option value="false">No</option>
-      </select>
-
-      <button type="submit">Show Individualized Plan</button>
-    </form>
-
-    <div id="planOutput"></div>
-  </div>
   <script>
-    function getCKDPlan(eGFR, albuminuria, hasT2D) {
-      const a = albuminuria;
-      const d = hasT2D;
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter var', 'Inter', ...tailwind.defaultTheme.fontFamily.sans],
+          },
+          colors: { 
+            // Add custom colors if needed, e.g. for card backgrounds not directly in Tailwind
+             'amber-900': '#78350f', // Used for text on light amber background
+          }
+        }
+      }
+    }
+  </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react/": "https://esm.sh/react@^19.1.0/"
+  }
+}
+</script>
+</head>
+<body class="antialiased text-slate-700 bg-slate-100">
 
-      // Albuminuria warning
-      const albuminuriaNote = a ? `<div class="note"><b>Note:</b> Albuminuria detected. This multiplies the risk of cardiometabolic and kidney events.</div>` : "";
+  <div class="container mx-auto max-w-6xl my-8 sm:my-10 p-4 sm:p-6 bg-white rounded-2xl shadow-xl">
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-blue-600 mb-1 sm:text-5xl">
+        Your CKD Road Map
+      </h1>
+      <p class="text-slate-500 text-lg sm:text-xl">
+        A dynamic, personalized guide for managing chronic kidney disease (CKD)
+      </p>
+    </header>
 
-      // Shared lifestyle, risk, and monitoring
-      const lifestyle = `
-        <h3>Lifestyle & Diet</h3>
-        <ul>
-          <li>Moderate-intensity physical activity &ge;150 min/week or as tolerated</li>
-          <li>Favor plant-based over animal-based foods; minimize ultra-processed foods</li>
-          <li>Maintain optimal BMI (20–25 kg/m²)</li>
-          <li>Avoid all tobacco products</li>
-        </ul>
-      `;
-      const risk = `
-        <h3>Risk Factor Management</h3>
-        <ul>
-          <li>Target SBP &lt;120 mmHg when tolerated</li>
-          <li>Annual screening for albuminuria</li>
-          <li>Regular home BP monitoring</li>
-        </ul>
-      `;
+    <!-- Disclaimer -->
+    <div class="bg-yellow-50 text-yellow-700 border border-yellow-300 rounded-lg p-4 text-center text-sm mb-8">
+      <strong>Disclaimer:</strong> This roadmap is a guide based on KDIGO CKD recommendations and general clinical information. Always consult your nephrologist or healthcare provider for medical advice and treatment tailored to your specific condition. This tool does not replace professional medical consultation.
+    </div>
 
-      // Stage-specific logic
-      if (eGFR >= 60) {
-        return `
-          <h2>Stage G1–G2 (eGFR &ge;60)</h2>
-          ${albuminuriaNote}
-          ${lifestyle}
-          <h3>Dietary Recommendations</h3>
-          <ul>
-            <li>Protein: 0.8 g/kg/day</li>
-            <li>Sodium: &lt;2 g/day</li>
-          </ul>
-          <h3>Medication</h3>
-          <ul>
-            <li>RAASi and SGLT2i for all with albuminuria (diabetic or not)</li>
-            <li>Non-steroidal MRAs (diabetic with albuminuria, persistent despite RAASi and SGLT2i)</li>
-            ${d ? `<li>Metformin if eGFR &ge;30 (monitor B12 if used &gt;4 years)</li>
-            <li>Individualized HbA1c target: &lt;6.5–8.0%</li>` : ""}
-            <li>Statin for age &ge;50 or CVD</li>
-            <li>Low-dose aspirin if established CVD</li>
-          </ul>
-          ${risk}
-          <h3>Monitoring</h3>
-          <ul>
-            <li>Kidney function, creatinine, potassium: every 6–12 months</li>
-            <li>After starting/increasing RAASi: check creatinine/K+ in 2–4 weeks</li>
-          </ul>
-        `;
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mt-6 sm:mt-8">
+      <!-- Sidebar Column -->
+      <aside class="space-y-6 lg:col-span-1">
+        <!-- eGFR Display -->
+        <div id="egfr-display-container" class="rounded-xl shadow-md p-5 text-center transition-all duration-300 ease-in-out">
+          <div class="text-5xl font-bold tracking-tight mb-1">
+            <span id="egfr-value-num">60</span>
+            <span class="text-lg font-normal opacity-90 ml-1">mL/min/1.73m²</span>
+          </div>
+          <div id="egfr-stage-label" class="text-xl font-semibold opacity-95">G2: Mildly Decreased eGFR</div>
+        </div>
+
+        <!-- eGFR Slider -->
+        <div class="card bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+          <label for="egfr-slider" class="block text-sm font-semibold text-slate-700 mb-1">
+            eGFR (mL/min/1.73m²)
+          </label>
+          <input
+            type="range"
+            min="5"
+            max="90"
+            value="60"
+            id="egfr-slider"
+            class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 slider-thumb"
+            aria-label="eGFR slider"
+            aria-valuemin="5"
+            aria-valuemax="90"
+            aria-valuenow="60"
+          />
+          <div class="flex justify-between text-xs text-slate-500 mt-2 px-0.5" aria-hidden="true">
+            <span>5</span>
+            <span>15</span>
+            <span>30</span>
+            <span>45</span>
+            <span>60</span>
+            <span>90</span>
+          </div>
+        </div>
+
+        <!-- eGFR Calculator -->
+        <div class="card bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+          <h3 class="text-lg font-semibold text-slate-800 mb-4">eGFR Calculator (CKD-EPI 2021)</h3>
+          <form id="egfr-calc-form" class="space-y-4">
+            <div>
+              <label for="age" class="block text-sm font-medium text-slate-700">Age</label>
+              <input type="number" id="age" value="60" min="1" max="120" required class="mt-1 block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"/>
+            </div>
+            <div>
+              <label for="sex" class="block text-sm font-medium text-slate-700">Biological Sex</label>
+              <select id="sex" class="mt-1 block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </div>
+            <div>
+              <label for="creatinine" class="block text-sm font-medium text-slate-700">Serum Creatinine (mg/dL)</label>
+              <input type="number" id="creatinine" value="1.0" min="0.1" step="0.01" required class="mt-1 block w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"/>
+            </div>
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" id="albuminuria-check" class="h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500"/>
+              <label for="albuminuria-check" class="text-sm font-medium text-slate-700">Albuminuria Present</label>
+            </div>
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" id="t2d-check" class="h-4 w-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500"/>
+              <label for="t2d-check" class="text-sm font-medium text-slate-700">Type 2 Diabetes</label>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+              Calculate eGFR
+            </button>
+            <div id="calc-result" class="mt-3 text-sm text-center font-semibold"></div>
+            <div id="calc-error-msg" class="mt-3 text-sm text-center font-semibold text-red-600"></div>
+          </form>
+        </div>
+      </aside>
+
+      <!-- Management Plan Column -->
+      <main id="management-column" class="space-y-6 lg:col-span-1">
+        <!-- Content will be dynamically inserted here by JavaScript -->
+      </main>
+
+      <!-- Specific Recommendations Column -->
+      <aside id="specific-column" class="space-y-6 lg:col-span-1">
+        <!-- Content will be dynamically inserted here by JavaScript -->
+      </aside>
+    </div>
+  </div>
+
+<script>
+// --- State Management ---
+let appState = {
+  eGFR: 60,
+  hasAlbuminuria: false,
+  hasT2D: false,
+};
+
+// --- CKD Data (Embedded from services/ckdDataService.ts) ---
+const TAILWIND_COLORS = {
+  primary: 'blue-600',
+  primary_light_gradient_to: '#93c5fd',
+  success: 'green-600',
+  warning: 'amber-500',
+  danger: 'red-600',
+};
+
+const TAILWIND_COLOR_HEX_MAP = {
+    'blue-600': '#2563eb',
+    'green-600': '#16a34a',
+    'amber-500': '#f59e0b',
+    'red-600': '#dc2626',
+};
+
+const BASE_LIFESTYLE_CARD = { 
+  key: "lifestyle", title: "Lifestyle Interventions", points: [
+    "Sodium <2 g/day (approx. 1 tsp salt).", 
+    "Follow a balanced diet; consult a dietitian for personalized advice.", 
+    "Engage in regular physical activity (e.g., aiming for 150 minutes/week of moderate-intensity, or as tolerated).", 
+    "Smoking cessation is crucial.", 
+    "Maintain a healthy weight (BMI 20-25 kg/m² where appropriate)."
+  ]
+};
+const BASE_RISK_FACTOR_CARD = {
+  key: "risk", title: "Risk Factor Management", points: [
+    "Blood Pressure: Target generally SBP <130 mmHg, individualized based on age and comorbidities. Discuss with your doctor.", 
+    "Lipid management: Statin therapy is often recommended for adults.", 
+    "Blood glucose control: If diabetic, maintain target HbA1c as advised by your doctor."
+  ]
+};
+const BASE_MEDICAL_THERAPY_CARD = {
+  key: "medical", title: "Medical Therapy Considerations", points: [
+    "Regularly review all medications (prescription and over-the-counter) with your doctor for kidney safety.", 
+    "Avoid NSAIDs (e.g., ibuprofen, naproxen) if possible, or use only under medical supervision.", 
+    "Ensure medications are dose-adjusted for your level of kidney function (eGFR)."
+  ]
+};
+const BASE_MONITORING_CARD = {
+  key: "monitoring", title: "Monitoring & Follow-up", points: [
+    "Attend regular appointments with your nephrologist or primary care provider.", 
+    "Monitor eGFR and albuminuria (urine ACR) as recommended by your doctor (typically annually or more frequently depending on stage/risk).", 
+    "Regular blood pressure checks."
+  ]
+};
+const BASE_BONE_MINERAL_CARD = {
+    key: "bone", title: "Bone & Mineral Health", points: [
+        "Ensure adequate Calcium and Vitamin D intake, as advised.",
+        "Routine monitoring of calcium, phosphorus, and PTH may begin in later stages or if issues arise."
+    ]
+};
+const BASE_DIETARY_SPECIFIC_CARD = {
+    key: "dietary", title: "Dietary Guidelines", points: [
+        "Reduce sodium intake to <2g per day.",
+        "Emphasize fresh, whole foods; limit processed foods high in sodium and phosphate additives.",
+        "Consult a renal dietitian for personalized advice.",
+    ]
+};
+const BASE_PHYSICAL_ACTIVITY_SPECIFIC_CARD = {
+    key: "physical", title: "Physical Activity", points: [
+        "Aim for at least 150 minutes of moderate-intensity exercise per week, adapted to your tolerance.",
+        "Examples: Brisk walking, cycling, swimming.",
+        "Discuss appropriate exercise plans with your doctor.",
+    ]
+};
+
+const SICK_DAY_GUIDANCE_CARD = {
+  key: "sick_day_guidance",
+  title: "Sick Day Guidance (SADMANS)",
+  points: [
+    "In acute, dehydrating illness (e.g., fever, vomiting, diarrhea), temporarily stop these medications after discussion with your doctor:",
+    {text: "S - Sulfonylureas", isListItem: true},
+    {text: "A - ACE inhibitors (ACEi)", isListItem: true},
+    {text: "D - Diuretics / Direct Renin Inhibitors", isListItem: true},
+    {text: "M - Metformin", isListItem: true},
+    {text: "A - Angiotensin II Receptor Blockers (ARBs)", isListItem: true},
+    {text: "N - Non-steroidal Anti-inflammatory Drugs (NSAIDs)", isListItem: true},
+    {text: "S - SGLT2 inhibitors", isListItem: true},
+    "Always consult your healthcare provider for specific advice during illness. Resume medications once stable and rehydrated, as advised."
+  ]
+};
+
+const FINERENONE_THERAPY_CARD = {
+  key: "finerenone_therapy",
+  title: "Finerenone Therapy Guidelines",
+  isFinerenoneGuidance: true,
+  points: [
+    "For adults with Type 2 Diabetes, albuminuria (>30 mg/g or >3 mg/mmol), normal serum K+, eGFR ≥25 ml/min, and on a maximally tolerated RAS inhibitor (ACEi/ARB). Discuss with your doctor.",
+    {text: "Serum K+ ≤4.8 mmol/L:", subPoints: [
+      "Initiate Finerenone:",
+      {text: "10 mg daily if eGFR 25-59 ml/min/1.73m²", isListItem: true},
+      {text: "20 mg daily if eGFR ≥60 ml/min/1.73m²", isListItem: true},
+      "Monitor K+ at 1 month after initiation and then every 4 months.",
+      "If on 10 mg, consider increasing dose to 20 mg daily after at least 4 weeks if K+ ≤4.8 mmol/L and clinically appropriate.",
+      "Restart 10 mg daily if previously held for hyperkalemia and K+ now ≤5.0 mmol/L (after confirming stability)."
+    ], isListItem: true},
+    {text: "Serum K+ 4.9–5.5 mmol/L:", subPoints: [
+      "Continue Finerenone (current dose: 10 mg or 20 mg).",
+      "Monitor K+ every 4 months (or more frequently if clinical changes)."
+    ], isListItem: true},
+    {text: "Serum K+ >5.5 mmol/L:", subPoints: [
+      "Hold Finerenone.",
+      "Review diet and concomitant medications that may affect K+.",
+      "Recheck K+ within 1-3 days. If K+ remains elevated, manage hyperkalemia as per guidelines.",
+      "Consider reinitiation of Finerenone at 10mg daily if K+ normalizes to ≤5.0 mmol/L and it's deemed safe."
+    ], isListItem: true}
+  ]
+};
+
+const PROTEIN_INTAKE_GUIDE_CARD = {
+  key: "protein_guide",
+  title: "Protein Intake Guide",
+  points: [
+    "General recommendation for CKD G3-G5 (not on dialysis) is often around 0.8 g of protein per kg of body weight per day.",
+    "For CKD G5 / Kidney Failure, protein intake is typically stricter (e.g., 0.6 g/kg/day) and highly individualized, especially if not on dialysis.",
+    "Dietary protein sources should be diverse, including plant-based options.",
+    "Always consult your doctor or a renal dietitian for personalized protein intake recommendations based on your specific CKD stage, nutritional status, and other health conditions."
+  ]
+};
+
+const ckdData = {
+  g1: { /* ... Data from services/ckdDataService.ts ... */ 
+    stageName: "G1: Normal or High eGFR",
+    color: TAILWIND_COLORS.primary,
+    careTransition: "Maintain healthy lifestyle. Diagnose and treat underlying causes of kidney damage if present (e.g., manage hypertension, diabetes).",
+    albuminuriaWarning: "Even with normal eGFR, the presence of albuminuria indicates kidney damage and increased risk. Requires investigation and management.",
+    firstLineTherapy: {
+        title: "Primary Interventions:",
+        points: ["Address modifiable risk factors (diet, exercise, smoking).", "Manage blood pressure and glucose if elevated.", "If albuminuria present, RAAS inhibitors (ACEi/ARB) may be considered, especially in diabetes."]
+    },
+    managementCards: [
+      {...BASE_LIFESTYLE_CARD, points: [...BASE_LIFESTYLE_CARD.points, "Annual health check-ups."]},
+      {...BASE_RISK_FACTOR_CARD, points: [...BASE_RISK_FACTOR_CARD.points, "Screen for albuminuria annually if at risk (e.g. diabetes, hypertension)."]},
+      BASE_MEDICAL_THERAPY_CARD,
+    ],
+    specificCards: [
+      BASE_DIETARY_SPECIFIC_CARD,
+      BASE_PHYSICAL_ACTIVITY_SPECIFIC_CARD,
+      {...BASE_MONITORING_CARD, points: ["Annual eGFR & urine albumin-to-creatinine ratio (ACR) check, especially if risk factors for CKD progression are present."]}
+    ]
+  },
+  g2: { /* ... Data from services/ckdDataService.ts ... */ 
+    stageName: "G2: Mildly Decreased eGFR",
+    color: TAILWIND_COLORS.primary,
+    careTransition: "Focus on slowing progression. Estimate risk of progression. Identify and manage reversible causes.",
+    albuminuriaWarning: "Albuminuria significantly increases risk for progression and cardiovascular events. Key target for therapy.",
+    firstLineTherapy: {
+        title: "First-line Drug Therapy for Cardiovascular and Kidney Protection:",
+        points: ["RAAS inhibitors (ACEi or ARB) are recommended for patients with albuminuria (ACR ≥30 mg/g or ≥3 mg/mmol), especially with diabetes or hypertension.", "SGLT2 inhibitors are recommended for patients with type 2 diabetes and CKD. May be considered in non-diabetic CKD with albuminuria as per guidelines."]
+    },
+    t2dManagement: {
+        title: "Type 2 Diabetes Management in CKD:",
+        points: [
+            "Individualized HbA1c target (typically <7.0% to <8.0% based on patient factors, avoiding hypoglycemia).",
+            "Metformin: Generally safe. Monitor renal function.",
+            "SGLT2 inhibitors: Recommended. Ensure eGFR is appropriate for initiation/continuation.",
+            "GLP-1 Receptor Agonists: Often beneficial and safe."
+        ]
+    },
+    managementCards: [
+      BASE_LIFESTYLE_CARD,
+      BASE_RISK_FACTOR_CARD,
+      {...BASE_MEDICAL_THERAPY_CARD, points: [...BASE_MEDICAL_THERAPY_CARD.points, "Consider RAASi (ACEi/ARB) if albuminuria or hypertension.", "SGLT2i if T2D and CKD."]},
+      BASE_BONE_MINERAL_CARD,
+    ],
+    specificCards: [
+      BASE_DIETARY_SPECIFIC_CARD,
+      BASE_PHYSICAL_ACTIVITY_SPECIFIC_CARD,
+      {...BASE_MONITORING_CARD, points: ["Monitor eGFR & ACR every 6-12 months, or more often if rapid progression or high albuminuria."]},
+      SICK_DAY_GUIDANCE_CARD,
+      FINERENONE_THERAPY_CARD,
+    ]
+  },
+  g3a: { /* ... Data from services/ckdDataService.ts ... */ 
+    stageName: "G3a: Mild-Moderate Decrease",
+    color: TAILWIND_COLORS.success,
+    careTransition: "Monitor eGFR every 6–12 months. Early lifestyle and medical interventions are key. Referral to nephrology should be considered, especially if progression is rapid, albuminuria is high, or complications arise.",
+    albuminuriaWarning: "Albuminuria significantly increases risk for progression and cardiovascular events. Key target for therapy.",
+    firstLineTherapy: {
+        title: "First-line Drug Therapy for Cardiovascular and Kidney Protection:",
+        points: ["RAAS inhibitors (ACEi or ARB) for albuminuria (ACR ≥30 mg/g).", "SGLT2 inhibitors for type 2 diabetes and CKD. Increasingly used in non-diabetic CKD with albuminuria."]
+    },
+    t2dManagement: {
+        title: "Type 2 Diabetes Management in CKD:",
+        points: [
+            "Individualized HbA1c target.",
+            "Metformin: Use with caution, monitor renal function. Consider dose reduction if eGFR approaches 45 ml/min.",
+            "SGLT2 inhibitors: Recommended. Ensure eGFR is appropriate.",
+            "Finerenone: Consider if albuminuria persists despite RAASi and SGLT2i (if eGFR >25 ml/min and K+ normal)."
+        ]
+    },
+    managementCards: [
+      {...BASE_LIFESTYLE_CARD, points: [...BASE_LIFESTYLE_CARD.points, "Protein intake generally 0.8 g/kg/day."]},
+      BASE_RISK_FACTOR_CARD,
+      BASE_MEDICAL_THERAPY_CARD,
+      {...BASE_BONE_MINERAL_CARD, points: ["Monitor calcium, phosphate, PTH, Vitamin D as indicated by nephrologist."]},
+      {key: "planning", title: "Early Kidney Health Discussion", points: ["Understand your kidney condition.", "Discuss risk factors for progression with your doctor.", "Plan for regular follow-ups."]}
+    ],
+    specificCards: [
+      {...BASE_DIETARY_SPECIFIC_CARD, points: [...BASE_DIETARY_SPECIFIC_CARD.points, "Protein intake guideline: ~0.8g/kg/day. Discuss with dietitian."]},
+      {...BASE_PHYSICAL_ACTIVITY_SPECIFIC_CARD, points: ["Aim for at least 150 minutes/week moderate activity, or to tolerance."]},
+      {...BASE_MONITORING_CARD, points: ["Monitor eGFR & ACR every 4-6 months, or as advised."]},
+      PROTEIN_INTAKE_GUIDE_CARD,
+      SICK_DAY_GUIDANCE_CARD,
+      FINERENONE_THERAPY_CARD,
+    ]
+  },
+  g3b: { // eGFR 30-44
+    stageName: "G3b: Moderate-Severe Decrease",
+    color: TAILWIND_COLORS.warning,
+    careTransition: "Transition from primary care to nephrology care is generally recommended at this eGFR level, or earlier if complications or rapid progression.",
+    albuminuriaWarning: "The presence of albuminuria significantly multiplies the risk of cardiometabolic and kidney events.",
+    firstLineTherapy: {
+      title: "First-line Drug Therapy for Cardiovascular and Kidney Protection:",
+      points: [
+        "RAAS inhibitors (ACEi or ARB) for albuminuria.",
+        "SGLT2 inhibitors for T2D and CKD; consider for non-diabetic albuminuric CKD if eGFR ≥20 ml/min.",
+        "Non-steroidal MRAs (e.g., Finerenone) for diabetic patients with persistent albuminuria despite RAASi/SGLT2i, if eGFR ≥25 ml/min and K+ normal."
+      ]
+    },
+    t2dManagement: {
+      title: "Type 2 Diabetes Management in CKD (eGFR 30-44):",
+      points: [
+        "Individualized HbA1c target: <6.5% to <8.0% based on patient factors, balancing glycemic control with hypoglycemia risk.",
+        {text: "Metformin:", subPoints: [
+            "Use with caution.",
+            "Maximum dose often halved (e.g., 500mg BID or 1000mg OD).",
+            "Monitor renal function (eGFR) every 3 months.",
+            "Monitor B12 levels if used for >4 years.",
+            "Discontinue if eGFR falls below 30 ml/min/1.73m²."
+        ], isListItem: true },
+        {text: "SGLT2 inhibitors:", subPoints: [
+            "Initiate or continue if eGFR ≥20 ml/min/1.73m².",
+            "Proven kidney and cardiovascular benefits.",
+            "Withhold during acute illness/surgery (sick day rule)."
+        ], isListItem: true },
+        {text: "Finerenone (Non-steroidal MRA):", subPoints: [
+            "Consider if albuminuria persists despite RAASi and SGLT2i, and if eGFR ≥25 ml/min and serum K+ ≤4.8 mmol/L for initiation.",
+             // Detailed Finerenone guidance is in its own card, this is a summary reminder.
+            "Start 10mg daily if eGFR 25-59 ml/min. (Full details in Finerenone card)",
+            "Monitor K+ closely as per specific Finerenone guidelines."
+        ], isListItem: true }
+      ]
+    },
+    managementCards: [
+       {...BASE_LIFESTYLE_CARD, points: ["Sodium intake <2 g/day", "Protein intake 0.8g/kg/day", "Favor plant-based foods", "Adapted physical activity based on tolerance (aim 150 min/week)", "Smoking cessation essential"]},
+       {...BASE_RISK_FACTOR_CARD, points: ["Blood pressure target: SBP <120 mmHg when tolerated", "Glycemic control: HbA1c <7.0% (individualized)", "Statin therapy recommended", "Monitor albuminuria every 6 months", "Low-dose aspirin if established CVD"]},
+       {...BASE_MEDICAL_THERAPY_CARD, points: ["SGLT2i for T2D/albuminuric CKD with eGFR >20 ml/min", "RASi with careful monitoring (check Cr/K+ 2-4 weeks after start/change)", "Statin for adults ≥50 years (or younger with risk factors)", "Discontinue metformin when eGFR <30 ml/min", "Monitor kidney function every 3-6 months"]},
+       {...BASE_BONE_MINERAL_CARD, points: ["Check calcium and phosphate every 6-12 months", "Monitor vitamin D status", "Be alert for early bone mineral changes. Refer to nephrology for management."]},
+       {key: "planning", title: "Early Kidney Health Planning", points: ["Regular nephrology consultation is important.", "Discuss progression risk and management strategies.", "Understand symptoms of worsening kidney function.", "Plan for dietary adjustments with a dietitian."]}
+    ],
+    specificCards: [
+        {key: "dietary", title: "Dietary Guidelines", points: ["Restrict sodium (<2 g/day)", "Favor plant-based foods", "Protein intake 0.8g/kg/day. Adjust with dietitian if needed.", "Monitor potassium intake; restriction may be needed if K+ high."]},
+        {key: "physical", title: "Physical Activity", points: ["Activity compatible with tolerance; aim for 150 min/week moderate intensity.", "Low-impact exercises recommended (walking, cycling).", "Maintain optimal BMI (20-25 kg/m²).", "Absolutely avoid tobacco products.", "Consider physical therapy if limitations exist."]},
+        {key: "medication", title: "Medication Management", points: [
+            "Target SBP <120 mmHg when tolerated.", "RASi with careful monitoring of eGFR and K+.", "SGLT2i for T2D/albuminuric CKD (eGFR >20), withhold during illness.", "Discontinue metformin if eGFR <30.", "Statin therapy.", "If albuminuria + T2D: Consider Finerenone with close K+ monitoring (if eGFR >25)."
+        ]},
+        {...BASE_MONITORING_CARD, points: ["Check eGFR and electrolytes every 3-6 months.", "Ca/PO4 every 6-12 months.", "Monitor albuminuria every 6 months.", "Regular BP monitoring.", "Screen for anemia. If albuminuria: More frequent monitoring recommended."]},
+        {key: "bone_spec", title: "Bone & Mineral Monitoring", points: ["Ca/PO4 every 6-12 months.", "Consider vitamin D supplementation if deficient.", "Monitor for early bone changes. Nephrology referral for specific MBD management."]},
+        PROTEIN_INTAKE_GUIDE_CARD,
+        SICK_DAY_GUIDANCE_CARD,
+        FINERENONE_THERAPY_CARD,
+    ]
+  },
+  g4: { // eGFR 15-29
+    stageName: "G4: Severe Decrease",
+    color: TAILWIND_COLORS.danger,
+    careTransition: "Transition from nephrology care to interprofessional care (including dietitian, pharmacist, social worker) is recommended. Focus on RRT preparation.",
+    albuminuriaWarning: "The presence of albuminuria significantly multiplies the risk of cardiometabolic and kidney events. Intensive management required.",
+    firstLineTherapy: {
+      title: "First-line Drug Therapy (use with extreme caution & close monitoring):",
+      points: [
+        "RAAS inhibitors (ACEi or ARB): Continue if tolerated and beneficial, with very close K+ and eGFR monitoring. Dose reduction or cessation may be needed.",
+        "SGLT2 inhibitors: Continue if eGFR ≥20 ml/min and tolerated. Benefits may persist. Discontinue if eGFR consistently <20.",
+        "Non-steroidal MRAs (e.g., Finerenone): Generally NOT initiated at this stage (requires eGFR ≥25). If already on, discuss continuation with nephrologist; likely discontinue."
+      ]
+    },
+    t2dManagement: {
+      title: "Type 2 Diabetes Management in CKD (eGFR 15-29):",
+      points: [
+        "Individualized HbA1c target: <6.5% to <8.0%, prioritizing hypoglycemia avoidance.",
+        "Metformin: Contraindicated.",
+        {text: "SGLT2 inhibitors:", subPoints: [
+            "Continue if eGFR ≥20 ml/min and tolerated. Monitor closely.",
+            "Withhold during acute illness/surgery (sick day rule).",
+            "Discontinue if eGFR persistently falls below 20 ml/min."
+        ], isListItem: true},
+        {text: "Finerenone (Non-steroidal MRA):", subPoints: [
+            "Generally not initiated at this eGFR (requires ≥25 ml/min).",
+            "If patient was already on Finerenone and eGFR declined, specialist decision needed, often involves discontinuation due to hyperkalemia risk."
+        ], isListItem: true},
+        "Insulin or other antidiabetic agents may require dose adjustments."
+      ]
+    },
+    managementCards: [
+        {...BASE_LIFESTYLE_CARD, points: ["Sodium intake <2 g/day (may need stricter limits)", "Protein restriction (0.6-0.8g/kg/day, individualized)", "Gentle physical activity as tolerated", "Smoking cessation urgent", "Limit processed foods. Fluid restriction may be needed."]},
+        {...BASE_RISK_FACTOR_CARD, points: ["Blood pressure target: SBP <120 mmHg if tolerated (individualize)", "Individualized glycemic targets", "Statin therapy recommended", "Monitor albuminuria quarterly (or as advised)", "Low-dose aspirin if established CVD", "Discuss dialysis options and ensure timely education."]},
+        {...BASE_MEDICAL_THERAPY_CARD, points: ["Careful use of ACEi/ARBs (monitor K+, eGFR; consider stopping)", "SGLT2i if T2D/albuminuric CKD with eGFR >20 (monitor; stop if <20)", "Statin for adults ≥50 years", "Avoid ALL nephrotoxic medications", "Metformin contraindicated", "Discuss dialysis options, education, and access planning", "Monitor kidney function monthly or more frequently."]},
+        {...BASE_BONE_MINERAL_CARD, points: ["Check calcium and phosphate every 1-3 months", "Check iPTH every 3-6 months", "Actively manage mineral bone disorder (phosphate binders, vitamin D sterols as per nephrologist)", "Monitor for symptoms of bone disease."]},
+        {key: "planning", title: "Advanced CKD Planning & RRT Prep", points: ["Discuss dialysis options (hemodialysis, peritoneal) and kidney transplant in detail.", "Regular, frequent nephrology follow-up (e.g., monthly).", "Timely vascular access planning and creation for hemodialysis.", "Transplant evaluation process initiation, if appropriate.", "Advance care planning discussions, including conservative care if preferred."]}
+    ],
+    specificCards: [
+        {key: "dietary", title: "Dietary Guidelines", points: ["Low sodium diet (<2 g/day, may be <1.5g)", "Protein restriction (0.6-0.8g/kg/day, individualized by dietitian)", "Potassium restriction often needed.", "Phosphate restriction (limit high-phosphate foods, use binders if prescribed).", "Fluid intake management. Regular dietitian consultation essential."]},
+        {key: "physical", title: "Physical Activity", points: ["Activity compatible with tolerance; focus on maintaining function.", "Low-impact exercises recommended.", "Maintain optimal BMI if possible, prevent malnutrition.", "Absolutely avoid tobacco products.", "Consider physical/occupational therapy to maintain independence."]},
+        {key: "medication", title: "Medication Management", points: [
+            "Individualize SBP targets.", "Careful use/discontinuation of ACEi/ARBs.", "SGLT2i: continue if eGFR >20, stop if <20. Withhold during illness.", "Metformin contraindicated.", "Statin therapy.", "Low-dose aspirin if CVD.", "Manage anemia, acidosis, MBD actively."
+        ]},
+        {...BASE_MONITORING_CARD, points: ["Check eGFR and electrolytes every 1-3 months (or more often).", "Ca/PO4 every 1-3 months.", "iPTH every 3-6 months.", "Regular anemia screening (Hb).", "Assess for uremic symptoms (nausea, fatigue, itching).", "Discuss readiness for RRT."]},
+        {key: "bone_spec", title: "Bone & Mineral Monitoring", points: ["Ca/PO4 every 1-3 months.", "iPTH every 3-6 months.", "Vitamin D assessment and active sterol use if indicated.", "Phosphate binders as prescribed.", "Manage acidosis."]},
+        PROTEIN_INTAKE_GUIDE_CARD,
+        SICK_DAY_GUIDANCE_CARD,
+        FINERENONE_THERAPY_CARD, // Will be hidden by component logic if eGFR <=25
+    ]
+  },
+  g5: { // eGFR < 15 (Kidney Failure)
+    stageName: "G5: Kidney Failure / RRT",
+    color: TAILWIND_COLORS.danger,
+    careTransition: "Access planning and renal replacement therapy (RRT) initiation or active management. Intensive interprofessional care.",
+    albuminuriaWarning: "While eGFR is primary, managing complications related to prior kidney damage (indicated by albuminuria) continues.",
+    firstLineTherapy: {
+      title: "Medication Management in Kidney Failure (Highly Individualized):",
+      points: [
+        "RAAS inhibitors (ACEi or ARB): Often discontinued due to hyperkalemia risk and limited benefit once on RRT, unless specific indications like heart failure persist. Specialist decision.",
+        "SGLT2 inhibitors: Generally discontinued once eGFR <20 ml/min or RRT is initiated.",
+        "Non-steroidal MRAs (e.g., Finerenone): Contraindicated for initiation. If on, typically discontinued."
+      ]
+    },
+    t2dManagement: {
+      title: "Type 2 Diabetes Management in Kidney Failure / RRT:",
+      points: [
+        "Individualized HbA1c target: <7.0% to <8.5% (or higher), focus on hypoglycemia prevention. Glycemic control may change with RRT.",
+        "Metformin: Contraindicated.",
+        "SGLT2 inhibitors: Discontinued.",
+        "Finerenone: Not applicable for initiation; discontinue if on.",
+        "Insulin therapy is common; doses often need significant adjustment with RRT initiation and changes in clearance.",
+        "Monitor for hypoglycemia closely."
+      ]
+    },
+    managementCards: [
+        {key: "lifestyle", title: "Lifestyle with Kidney Failure / RRT", points: ["Highly individualized diet based on RRT modality (very low sodium <1.5-2g/day, strict protein 0.6g/kg/day if pre-dialysis, may increase with dialysis, specific K+/PO4/fluid limits).", "Gentle activity as tolerated to maintain function.", "No smoking or alcohol."]},
+        {key: "risk", title: "Managing Complications & Risks on RRT", points: ["Individualized BP targets (may change with RRT).", "Conservative glycemic targets.", "Manage mineral bone disorder aggressively.", "Treat metabolic acidosis.", "Anemia management (ESAs, iron).", "Cardiovascular risk remains very high; manage lipids, consider aspirin."]},
+        {key: "medical", title: "Medical Therapy & RRT Coordination", points: ["Coordinate all care with nephrology/RRT team.", "Major medication adjustments needed for most drugs (dose, frequency based on RRT).", "Statin for adults ≥50 years (or based on CV risk).", "Frequent monitoring of electrolytes, fluid status, nutritional status.", "Manage RRT-specific complications (access issues, infections)."]},
+        {key: "bone", title: "Bone & Mineral Disorder in Kidney Failure", points: ["Check calcium and phosphate monthly (or per RRT protocol).", "Check iPTH every 3 months (or per protocol).", "Manage actively with phosphate binders, vitamin D sterols, calcimimetics as needed.", "Prevent/treat renal osteodystrophy."]},
+        {key: "planning", title: "Kidney Replacement Therapy (RRT) & Advance Care", points: ["Manage ongoing RRT (dialysis or transplant).", "Urgent nephrology/RRT team involvement for any issues.", "Continuous dialysis education and modality adjustments if needed.", "Vascular/peritoneal access care and monitoring.", "Ongoing transplant evaluation/waitlist management if applicable.", "Conservative care discussions if RRT is burdensome or not aligned with goals.", "Advance care planning reviewed and updated."]}
+    ],
+    specificCards: [
+        {key: "dietary", title: "Dietary Guidelines for RRT", points: ["Very low sodium diet (<2 g/day, often <1.5g).", "Protein intake individualized (0.6g/kg/day pre-RRT, may increase to 1.0-1.2g/kg on HD/PD).", "Potassium restriction based on labs/RRT modality.", "Phosphate restriction (diet + binders).", "Fluid restriction highly individualized.", "Regular dietitian consultation is critical."]},
+        {key: "physical", title: "Physical Activity on RRT", points: ["Gentle activity as tolerated to combat deconditioning.", "Focus on maintaining mobility and muscle strength.", "Short, frequent movement sessions if fatigue is an issue.", "Weight management to dry weight (if on dialysis).", "No tobacco use under any circumstances."]},
+        {key: "medication", title: "Medication Management on RRT", points: [
+            "Individualized BP targets.", "ACEi/ARBs often stopped or dose-reduced.", "SGLT2i generally discontinued.", "Metformin contraindicated.", "Statin therapy.", "Low-dose aspirin if CVD.", "Manage uremic symptoms (pruritus, nausea). All meds reviewed for RRT clearance."
+        ]},
+        {...BASE_MONITORING_CARD, points: ["Monthly (or more frequent) lab monitoring per RRT protocol.", "Ca/PO4 monthly.", "iPTH every 3 months.", "Monitor fluid status closely (weight, BP, edema).", "Assess nutritional status regularly.", "Monitor RRT adequacy and access."]},
+        {key: "bone_spec", title: "Bone & Mineral Monitoring on RRT", points: ["Ca/PO4 monthly.", "iPTH every 3 months.", "Manage with diet, binders, Vitamin D sterols, calcimimetics.", "Prevent adynamic bone disease or hyperparathyroid bone disease."]},
+        {key: "transplant", title: "Kidney Transplant Considerations", points: ["If a transplant recipient, adherence to immunosuppressants is vital.", "Regular transplant clinic follow-up.", "Monitor for signs of rejection or infection.", "Manage post-transplant complications (diabetes, HTN, infections)."]},
+        SICK_DAY_GUIDANCE_CARD, // Still relevant for intercurrent illness, though RRT team manages.
+        // FINERENONE_THERAPY_CARD is not applicable here (eGFR too low)
+        // PROTEIN_INTAKE_GUIDE_CARD is superseded by specific RRT dietary advice
+    ]
+  }
+};
+
+
+// --- DOM Element References ---
+let domRefs = {};
+
+function initializeDomRefs() {
+  domRefs = {
+    egfrValueNum: document.getElementById('egfr-value-num'),
+    egfrStageLabel: document.getElementById('egfr-stage-label'),
+    egfrSlider: document.getElementById('egfr-slider'),
+    albuminuriaCheck: document.getElementById('albuminuria-check'),
+    t2dCheck: document.getElementById('t2d-check'),
+    managementColumn: document.getElementById('management-column'),
+    specificColumn: document.getElementById('specific-column'),
+    egfrCalcForm: document.getElementById('egfr-calc-form'),
+    calcResult: document.getElementById('calc-result'),
+    calcErrorMsg: document.getElementById('calc-error-msg'),
+    ageInput: document.getElementById('age'),
+    sexInput: document.getElementById('sex'),
+    creatinineInput: document.getElementById('creatinine'),
+    egfrDisplayContainer: document.getElementById('egfr-display-container')
+  };
+}
+
+// --- Helper to get stage key ---
+function getStageKey(eGFR) {
+  if (eGFR >= 90) return 'g1';
+  if (eGFR >= 60) return 'g2';
+  if (eGFR >= 45) return 'g3a';
+  if (eGFR >= 30) return 'g3b';
+  if (eGFR >= 15) return 'g4';
+  return 'g5';
+}
+
+// --- Helper to render points (string or object with subPoints) ---
+function renderPointsList(points, baseKey, isFinerenone = false) {
+  if (!points || points.length === 0) return '';
+  let listHtml = `<ul class="list-disc list-outside pl-5 space-y-1 text-sm ${isFinerenone ? 'list-none pl-2' : ''}">`;
+  
+  points.forEach((point, index) => {
+    const itemKey = `${baseKey}-${index}`;
+    if (typeof point === 'string') {
+      listHtml += `<li key="${itemKey}" class="break-words">${point}</li>`;
+    } else if (typeof point === 'object' && point.text) {
+      listHtml += `<li key="${itemKey}" class="break-words">${point.text}`;
+      if (point.subPoints && point.subPoints.length > 0) {
+        listHtml += renderPointsList(point.subPoints, `${itemKey}-sub`);
       }
-      if (eGFR >= 45) {
-        return `
-          <h2>Stage G3a (eGFR 45–59)</h2>
-          ${albuminuriaNote}
-          <div class="note"><b>Care Transition:</b> Consider nephrology referral.</div>
-          ${lifestyle}
-          <h3>Dietary Recommendations</h3>
-          <ul>
-            <li>Protein: 0.8 g/kg/day</li>
-            <li>Sodium: &lt;2 g/day</li>
-          </ul>
-          <h3>Medication</h3>
-          <ul>
-            <li>RAASi and SGLT2i for all with albuminuria (diabetic or not)</li>
-            <li>Non-steroidal MRAs (diabetic with albuminuria, persistent despite RAASi and SGLT2i)</li>
-            ${d ? `<li>Metformin: Initiate if eGFR &ge;30, halve dose if eGFR 30–44</li>
-            <li>Monitor B12 if used &gt;4 years</li>
-            <li>Individualized HbA1c target: &lt;6.5–8.0%</li>` : ""}
-            <li>Statin for age &ge;50 or CVD</li>
-            <li>Low-dose aspirin if established CVD</li>
-          </ul>
-          ${risk}
-          <h3>Monitoring</h3>
-          <ul>
-            <li>Kidney function, creatinine, potassium: every 3–6 months</li>
-            <li>Albuminuria: every 6 months</li>
-            <li>After starting/increasing RAASi: check creatinine/K+ in 2–4 weeks</li>
-            <li>Bone & Mineral: Consider vitamin D, check calcium/phosphate every 6–12 months</li>
-          </ul>
-        `;
-      }
-      if (eGFR >= 30) {
-        return `
-          <h2>Stage G3b (eGFR 30–44)</h2>
-          ${albuminuriaNote}
-          <div class="note"><b>Care Transition:</b> Nephrology follow-up recommended.</div>
-          ${lifestyle}
-          <h3>Dietary Recommendations</h3>
-          <ul>
-            <li>Protein: 0.8 g/kg/day</li>
-            <li>Sodium: &lt;2 g/day</li>
-            <li>Monitor potassium intake</li>
-          </ul>
-          <h3>Medication</h3>
-          <ul>
-            <li>RAASi and SGLT2i for all with albuminuria (diabetic or not)</li>
-            <li>Non-steroidal MRAs (diabetic with albuminuria, persistent despite RAASi and SGLT2i)</li>
-            ${d ? `<li>Metformin: Use with caution, halve dose, monitor renal function every 3 months, discontinue if eGFR &lt;30</li>
-            <li>Monitor B12 if used &gt;4 years</li>
-            <li>Individualized HbA1c target: &lt;6.5–8.0%</li>` : ""}
-            <li>Statin for age &ge;50 or CVD</li>
-            <li>Low-dose aspirin if established CVD</li>
-          </ul>
-          ${risk}
-          <h3>Monitoring</h3>
-          <ul>
-            <li>Kidney function, creatinine, potassium: every 3 months</li>
-            <li>Albuminuria: every 6 months</li>
-            <li>Bone & Mineral: Calcium/phosphate every 6 months</li>
-          </ul>
-        `;
-      }
-      if (eGFR >= 15) {
-        return `
-          <h2>Stage G4 (eGFR 15–29)</h2>
-          ${albuminuriaNote}
-          <div class="note"><b>Care Transition:</b> Interprofessional care and RRT planning.</div>
-          <h3>Lifestyle & Diet</h3>
-          <ul>
-            <li>Protein restriction: 0.6–0.8 g/kg/day</li>
-            <li>Sodium: &lt;2 g/day</li>
-            <li>Gentle activity as tolerated</li>
-            <li>Urgent smoking cessation</li>
-            <li>Limit processed foods</li>
-          </ul>
-          <h3>Medication</h3>
-          <ul>
-            <li>Careful use of ACEi/ARBs</li>
-            <li>SGLT2i if eGFR &ge;20</li>
-            <li>Metformin contraindicated</li>
-            <li>Statin for age &ge;50 or CVD</li>
-            <li>Low-dose aspirin if established CVD</li>
-            <li>Non-steroidal MRAs (diabetic with albuminuria, persistent despite RAASi and SGLT2i)</li>
-          </ul>
-          <h3>Advanced CKD Planning</h3>
-          <ul>
-            <li>Discuss dialysis/transplant options</li>
-            <li>Early transplant referral if appropriate</li>
-            <li>Vascular access planning</li>
-            <li>Advance care planning</li>
-          </ul>
-          <h3>Monitoring & Bone Health</h3>
-          <ul>
-            <li>Kidney function, creatinine, potassium: every 1–3 months</li>
-            <li>Calcium/phosphate every 3 months; iPTH every 6 months</li>
-            <li>Monitor for anemia and uremic symptoms</li>
-          </ul>
-        `;
-      }
-      // eGFR < 15
-      return `
-        <h2>Stage G5 (eGFR &lt;15)</h2>
-        ${albuminuriaNote}
-        <div class="note"><b>Care Transition:</b> Access planning and RRT (dialysis/transplant) preparation required.</div>
-        <h3>Lifestyle & Diet</h3>
-        <ul>
-          <li>Strict protein restriction: 0.6 g/kg/day</li>
-          <li>Very low sodium (&lt;1.5–2 g/day)</li>
-          <li>Fluid restriction as needed</li>
-          <li>Gentle activity as tolerated; focus on maintaining mobility</li>
-          <li>No tobacco or alcohol</li>
-        </ul>
-        <h3>Medication</h3>
-        <ul>
-          <li>Metformin contraindicated</li>
-          <li>SGLT2i generally discontinued</li>
-          <li>Adjust/stop ACEi/ARBs as indicated</li>
-          <li>Statin for age &ge;50 or CVD</li>
-          <li>Low-dose aspirin if established CVD</li>
-          <li>Non-steroidal MRAs (diabetic with albuminuria, persistent despite RAASi and SGLT2i)</li>
-        </ul>
-        <h3>Kidney Replacement Preparation</h3>
-        <ul>
-          <li>Urgent nephrology referral if not already done</li>
-          <li>Dialysis education and modality selection</li>
-          <li>Vascular access planning and creation</li>
-          <li>Transplant evaluation if appropriate</li>
-          <li>Conservative care discussion if preferred</li>
-          <li>Advance care planning</li>
-        </ul>
-        <h3>Monitoring & Bone Health</h3>
-        <ul>
-          <li>Monthly or more frequent lab monitoring</li>
-          <li>Calcium/phosphate monthly; iPTH every 3 months</li>
-          <li>Monitor fluid/nutritional status, manage uremic symptoms</li>
-        </ul>
-      `;
+      listHtml += `</li>`;
+    }
+  });
+  listHtml += `</ul>`;
+  return listHtml;
+}
+
+
+// --- UI Update Function ---
+function updateUI() {
+  const stageKey = getStageKey(appState.eGFR);
+  const stageData = ckdData[stageKey];
+
+  // Update eGFR Display
+  domRefs.egfrValueNum.textContent = appState.eGFR;
+  domRefs.egfrStageLabel.textContent = stageData.stageName;
+  
+  const stageColor = stageData.color || TAILWIND_COLORS.primary;
+  const stageColorHex = TAILWIND_COLOR_HEX_MAP[stageColor] || TAILWIND_COLOR_HEX_MAP[TAILWIND_COLORS.primary];
+  let textColorClass = 'text-white';
+
+  if (stageColor === TAILWIND_COLORS.primary) {
+    domRefs.egfrDisplayContainer.style.background = `linear-gradient(90deg, ${stageColorHex} 65%, ${TAILWIND_COLORS.primary_light_gradient_to} 100%)`;
+  } else {
+    domRefs.egfrDisplayContainer.style.background = stageColorHex;
+  }
+  if (stageColor === TAILWIND_COLORS.warning) textColorClass = 'text-amber-900';
+  
+  domRefs.egfrDisplayContainer.className = `rounded-xl shadow-md p-5 text-center transition-all duration-300 ease-in-out ${textColorClass}`;
+  domRefs.egfrSlider.className = `w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-${stageColor} slider-thumb`;
+
+
+  // Management Column
+  let mgmtHTML = `<div class="column-header"><h2>Management Plan</h2></div>`;
+  
+  // Care Transition Alert
+  if (stageData.careTransition) {
+    mgmtHTML += `
+      <div class="alert-card-base bg-blue-50 border-blue-300 text-blue-700">
+        <i class="fa fa-info-circle text-blue-500"></i>
+        <div>
+          <strong>Care Transition</strong>
+          <div class="alert-content">${stageData.careTransition}</div>
+        </div>
+      </div>`;
+  }
+
+  // Albuminuria Alert
+  if (appState.hasAlbuminuria && stageData.albuminuriaWarning) {
+    mgmtHTML += `
+      <div class="alert-card-base bg-yellow-50 border-yellow-300 text-yellow-700">
+        <i class="fa fa-exclamation-triangle text-yellow-500"></i>
+        <div>
+          <strong>Albuminuria Detected</strong>
+          <div class="alert-content">
+            <p>${stageData.albuminuriaWarning}</p>
+            ${stageData.firstLineTherapy ? `
+              <div class="mt-2">
+                <em class="font-semibold">${stageData.firstLineTherapy.title}</em>
+                ${renderPointsList(stageData.firstLineTherapy.points, 'alb-therapy')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </div>`;
+  }
+  
+  // T2D Management Alert
+  if (appState.hasT2D && stageData.t2dManagement) {
+    mgmtHTML += `
+      <div class="alert-card-base bg-red-50 border-red-300 text-red-700">
+        <i class="fa fa-prescription-bottle-medical text-red-500"></i>
+        <div>
+          <strong>${stageData.t2dManagement.title}</strong>
+          <div class="alert-content">
+            ${renderPointsList(stageData.t2dManagement.points, 't2d-manage')}
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // Management Cards
+  const mgmtCardBgs = { lifestyle: "bg-emerald-50 border-emerald-200", risk: "bg-amber-50 border-amber-200", medical: "bg-sky-50 border-sky-200", bone: "bg-violet-50 border-violet-200", planning: "bg-orange-50 border-orange-200", default: "bg-slate-50 border-slate-200" };
+  stageData.managementCards.forEach(card => {
+    const bgColor = mgmtCardBgs[card.key] || mgmtCardBgs.default;
+    mgmtHTML += `
+      <div class="content-card-base ${bgColor}">
+        <h4>${card.title}</h4>
+        ${renderPointsList(card.points, `mgmt-${card.key}`)}
+      </div>`;
+  });
+  domRefs.managementColumn.innerHTML = mgmtHTML;
+
+  // Specific Recommendations Column
+  let specHTML = `<div class="column-header"><h2>Specific Recommendations</h2></div>`;
+  const specCardBgs = { dietary: "bg-lime-50 border-lime-200", physical: "bg-teal-50 border-teal-200", medication: "bg-cyan-50 border-cyan-200", monitoring: "bg-indigo-50 border-indigo-200", bone_spec: "bg-purple-50 border-purple-200", transplant: "bg-pink-50 border-pink-200", sick_day_guidance: "bg-orange-50 border-orange-200", finerone_therapy: "bg-rose-50 border-rose-200", protein_guide: "bg-sky-50 border-sky-200", default: "bg-slate-50 border-slate-200" };
+  
+  stageData.specificCards.forEach(card => {
+    if (card.key === 'finerenone_therapy' && (!appState.hasAlbuminuria || !appState.hasT2D || appState.eGFR <= 25)) {
+      return; // Skip Finerenone card if conditions not met
+    }
+    const bgColor = specCardBgs[card.key] || specCardBgs.default;
+    const isFinerenoneCard = card.key === 'finerenone_therapy'; // card.isFinerenoneGuidance from React
+    specHTML += `
+      <div class="content-card-base ${bgColor}">
+        <h4>${card.title}</h4>
+        ${renderPointsList(card.points, `spec-${card.key}`, isFinerenoneCard)}
+      </div>`;
+  });
+  domRefs.specificColumn.innerHTML = specHTML;
+}
+
+
+// --- Event Listeners ---
+function setupEventListeners() {
+  domRefs.egfrSlider.addEventListener('input', (e) => {
+    appState.eGFR = Number(e.target.value);
+    updateUI();
+  });
+
+  domRefs.albuminuriaCheck.addEventListener('change', (e) => {
+    appState.hasAlbuminuria = e.target.checked;
+    updateUI();
+  });
+
+  domRefs.t2dCheck.addEventListener('change', (e) => {
+    appState.hasT2D = e.target.checked;
+    updateUI();
+  });
+
+  domRefs.egfrCalcForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    domRefs.calcErrorMsg.textContent = '';
+    domRefs.calcResult.textContent = '';
+
+    const ageNum = parseFloat(domRefs.ageInput.value);
+    const creatinineNum = parseFloat(domRefs.creatinineInput.value);
+    const sex = domRefs.sexInput.value;
+
+    if (isNaN(ageNum) || ageNum <= 0 || ageNum > 120) {
+      domRefs.calcErrorMsg.textContent = "Please enter a valid age (1-120).";
+      return;
+    }
+    if (isNaN(creatinineNum) || creatinineNum <= 0 || creatinineNum > 20) {
+      domRefs.calcErrorMsg.textContent = "Please enter a valid creatinine value (e.g., 0.3-20 mg/dL).";
+      return;
     }
 
-    document.getElementById('ckdForm').onsubmit = function(e) {
-      e.preventDefault();
-      const egfr = parseFloat(document.getElementById('egfr').value);
-      const albuminuria = document.getElementById('albuminuria').value === "true";
-      const t2d = document.getElementById('t2d').value === "true";
-      document.getElementById('planOutput').innerHTML = getCKDPlan(egfr, albuminuria, t2d);
-      window.scrollTo({ top: document.getElementById('planOutput').offsetTop - 60, behavior: 'smooth' });
-    };
-  </script>
+    const k = sex === 'female' ? 0.7 : 0.9;
+    const alpha = sex === 'female' ? -0.241 : -0.302;
+    
+    let calculatedEgfr = 142 *
+      Math.pow(Math.min(creatinineNum / k, 1), alpha) *
+      Math.pow(Math.max(creatinineNum / k, 1), -1.200) *
+      Math.pow(0.9938, ageNum);
+    
+    if (sex === 'female') {
+      calculatedEgfr *= 1.012;
+    }
+    
+    const finalEgfr = Math.round(calculatedEgfr);
+    const validEgfr = Math.max(5, Math.min(120, finalEgfr));
+
+    domRefs.calcResult.style.color = TAILWIND_COLOR_HEX_MAP[TAILWIND_COLORS.primary];
+    domRefs.calcResult.textContent = `Calculated eGFR: ${validEgfr} mL/min/1.73m²`;
+    
+    appState.eGFR = validEgfr;
+    domRefs.egfrSlider.value = Math.min(90, validEgfr); // Cap slider at 90
+    updateUI();
+  });
+}
+
+// --- Initialize ---
+document.addEventListener('DOMContentLoaded', () => {
+  initializeDomRefs();
+  setupEventListeners();
+  updateUI(); // Initial render
+});
+
+</script>
+
 </body>
 </html>
